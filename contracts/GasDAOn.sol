@@ -15,8 +15,13 @@ contract GasDAOn {
   Counters.Counter public proposalId;
   mapping (proposalId => bool) proposals;
 
+  // duration: 1 week
 
+  // weighting
 
+  /*
+  based on vox article
+  **/
   enum GreenhouseGasUsage {
     PlanetaryArsonist,
     Charburger,
@@ -42,6 +47,10 @@ contract GasDAOn {
     uint256 indexed vote
   );
 
+  /*
+    @notice Join gasDAOn as a participant
+    @dev To change greenhouse gas usage, call this function with new usage.  Clients will use the latest usage as authoritative.
+  **/
   function participate(GreenhouseGasUsage _usage) external {
     emit ParticipantRegistered(
       msg.sender,
@@ -49,8 +58,17 @@ contract GasDAOn {
     );
   }
 
+  /**
+    @notice Only proposals made by participants are valid
+    @dev The proposal should be in the form of a question.
+    Binary voting:
+    "Should this DAO approve the findings of the IPCC Sixth Assessment Report, which was finalized on 4 April 2022?  No: 0, Yes: 1"
+    Non-binary voting:
+    "How many miles of new train/subway should Los Angeles build by 2030? Zero: 0, Five: 1, Ten: 2, Twenty-five: 3, Fifty: 4"
+  */
   function propose(string memory _proposal) event {
     proposalId.increment();
+    proposals[proposalId.current()] = true;
 
     emit Proposal(
       msg.sender,
@@ -60,6 +78,12 @@ contract GasDAOn {
     );
   }
 
+  /*
+    @notice Participants vote on proposals
+    @dev In order for a vote to be counted, an address must first register as a participant.
+    @dev The outcome will be determined offchain by tabulating the number of votes for each _vote and then weighting those by multiplying each _vote by the specified amout for each address in terms of their GreenhouseGasUsage.
+    @param _vote Must match one of the options declared in the proposal, otherwise it is thrown out.
+  **/
   function vote(uint256 _proposalId, uint256 _vote) external {
     require(_proposalId == true; "GasDAOn: proposalID does not exist");
 
