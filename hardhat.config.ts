@@ -22,7 +22,16 @@ const config: HardhatUserConfig = {
       default: 0,
       // "rinkeby": process.env.<ENTER_DEPLOYER>!
     },
-    user1: 1,
+    planetaryArsonist1: 1,
+    planetaryArsonist2: 2,
+    charburger1: 3,
+    charburger2: 4,
+    lowSimmer1: 5,
+    lowSimmer2: 6,
+    fairShare1: 7,
+    fairShare2: 8,
+    undisclosed1: 9,
+    undisclosed2: 10
   },
   networks: {
     localhost: {
