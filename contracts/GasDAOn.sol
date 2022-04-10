@@ -13,9 +13,9 @@ contract GasDAOn {
   using Counters for Counters.Counter;
 
   Counters.Counter public proposalId;
-  mapping (proposalId => bool) proposals;
+  mapping (uint256 => bool) proposals; // proposalId
 
-  uint256 public const votingPeriod = 604800
+  uint256 public constant votingPeriod = 604800;
 
   /* weighting
     1 / (Number of tons to be reduced + 1.4)
@@ -77,7 +77,7 @@ contract GasDAOn {
     Non-binary voting:
     "How many miles of new train/subway should Los Angeles build by 2030? Zero: 0, Five: 1, Ten: 2, Twenty-five: 3, Fifty: 4"
   */
-  function propose(string memory _proposal) event {
+  function propose(string memory _proposal) external {
     proposalId.increment();
     proposals[proposalId.current()] = true;
 
@@ -99,7 +99,7 @@ contract GasDAOn {
     @dev The voting period limit will be enforced offchain.  The block.timestamp for a vote must be a value less than the proposal's block.timestamp + votingPeriod.
   **/
   function vote(uint256 _proposalId, uint256 _vote) external {
-    require(_proposalId == true; "GasDAOn: proposalID does not exist");
+    require(proposals[_proposalId] == true, "GasDAOn: proposalID does not exist");
 
     emit Vote(
       _proposalId,

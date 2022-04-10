@@ -8,17 +8,11 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const {deployer} = await getNamedAccounts();
 
-  // If importing a dependency contract
-  // const DependencyContract = await deployments.get('DependencyContract');
-
-  await deploy('BasicNFT', {
+  await deploy('GasDAOn', {
     from: deployer,
-    log: true,
-    args: [ethers.BigNumber.from('1000')]
-    // if using dependency: args: [DependencyContract.address]
+    log: true
   });
 };
 export default func;
 
-func.tags = ['basicNFT'];
-// func.dependencies = ['dependencyContract'];
+func.tags = ['gasDAOn'];
