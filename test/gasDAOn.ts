@@ -29,10 +29,59 @@ describe('GasDAOn', () => {
   });
 
 
-  it('', async () => {
+  it('Basic integration: participate, propose, vote', async () => {
+    await gasDAOn.connect(planetaryArsonist1).participate(ethers.BigNumber.from('0'));
+    await gasDAOn.connect(planetaryArsonist2).participate(ethers.BigNumber.from('0'));
+    await gasDAOn.connect(charburger1).participate(ethers.BigNumber.from('1'));
+    await gasDAOn.connect(charburger2).participate(ethers.BigNumber.from('1'));
+    await gasDAOn.connect(lowSimmer1).participate(ethers.BigNumber.from('2'));
+    await gasDAOn.connect(lowSimmer2).participate(ethers.BigNumber.from('2'));
+    await gasDAOn.connect(fairShare1).participate(ethers.BigNumber.from('3'));
+    await gasDAOn.connect(fairShare2).participate(ethers.BigNumber.from('3'));
+    await gasDAOn.connect(undisclosed1).participate(ethers.BigNumber.from('4'));
+    await gasDAOn.connect(undisclosed2).participate(ethers.BigNumber.from('4'));
 
+    await gasDAOn.connect(fairShare1).propose("Would the world be better off if people used bicycles instead of cars?  No: 0, Yes: 1");
+
+    await gasDAOn.connect(planetaryArsonist1).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('0')
+    );
+    await gasDAOn.connect(planetaryArsonist2).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('0')
+    );
+    await gasDAOn.connect(charburger1).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('0')
+    );
+    await gasDAOn.connect(charburger2).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('0')
+    );
+    await gasDAOn.connect(lowSimmer1).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('0')
+    );
+    await gasDAOn.connect(lowSimmer2).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('0')
+    );
+    await gasDAOn.connect(fairShare1).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('1')
+    );
+    await gasDAOn.connect(fairShare2).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('1')
+    );
+    await gasDAOn.connect(undisclosed1).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('0')
+    );
+    await gasDAOn.connect(undisclosed2).vote(
+      ethers.BigNumber.from('1'),
+      ethers.BigNumber.from('0')
+    );
   });
-
-
-
 });
